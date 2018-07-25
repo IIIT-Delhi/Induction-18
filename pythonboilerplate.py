@@ -14,6 +14,19 @@ def print_pixel(arr, size):
 
 def main(size):
     global red, blue, green
+	"""		 
+		Inputs: 
+		red[][] - stores red component of the image
+		green[][] - stores green component of the image
+		blue[][] - stores blue component of the image
+		size[0] - height of the image
+		size[1] - width of the image
+		 
+		Outputs: 
+		Modify `red`, `green` and `blue` array itself.
+		 
+		Note: The default code leaves the image unchanged
+	"""
     # =========================
     #  Write filter logic here
     # =========================
