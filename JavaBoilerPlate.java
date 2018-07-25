@@ -54,6 +54,9 @@ public class JavaBoilerPlate {
 		 * Note: The current code leaves the image unchanged
 		 */
 
+		//=========================
+        // Write filter logic here
+        //=========================
 		for(int i=0; i<height; i++){
 			for(int j=0; j<width; j++){
 				red[i][j] = red[i][j];
@@ -61,6 +64,9 @@ public class JavaBoilerPlate {
 				blue[i][j] = blue[i][j];
 			}
 		}
+		//=========================
+        // Filter logic ends here
+        //=========================
 	}
 	
 	public int[][] input_arr() {
