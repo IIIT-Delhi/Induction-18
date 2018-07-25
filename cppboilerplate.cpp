@@ -9,20 +9,20 @@ int width, height;
 
 void main_fun()
 {
-	/**
-	 * Inputs: 
-	 * int red[][] - stores red component of the image
-	 * int green[][] - stores green component of the image
-	 * int blue[][] - stores blue component of the image
-	 * int height - height of the image
-	 * int width - width of the image
-	 * 
-	 * Outputs:
-	 * Modify `red`, `green` and `blue` itself.
-	 * 
-	 * 
-	 * Note: The default code leaves the image unchanged
-	 */
+    /**
+     * Inputs: 
+     * int red[][] - stores red component of the image
+     * int green[][] - stores green component of the image
+     * int blue[][] - stores blue component of the image
+     * int height - height of the image
+     * int width - width of the image
+     * 
+     * Outputs:
+     * Modify `red`, `green` and `blue` itself.
+     * 
+     * 
+     * Note: The default code leaves the image unchanged
+     */
 
     //=========================
     // Write filter logic here

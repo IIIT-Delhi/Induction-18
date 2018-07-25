@@ -8,7 +8,18 @@ Also for full usage, use:
 ./im_filter "./a.out" logoTemp.jpg
 ```
 
-ToDo: Implement level functionality !
+Easter egg (The level switch, it will show expected output for that level, 1-8) :
+```bash
+./im_filter "./a.out" logoTemp.jpg -l 7
+```
+
+For detailed help:
+```bash
+./imfilter --help
+```
+
+# Deprecated go binaries, highly outdated
+Use the im_filter binary instead (only for linux, ask windows people to share)
 
 ## building binaries
 
