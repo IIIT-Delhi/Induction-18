@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sys
 
 red = []
@@ -5,6 +6,7 @@ blue = []
 green = []
 
 def print_pixel(arr, size):
+	# boring function to print a matrix
 	for i in range(0, size[0]):
 		for j in range(0, size[1]):
 			print(arr[i][j], end=' ')
@@ -15,32 +17,35 @@ def main(size):
 	# Write your logic below :
 	for i in range(0, size[0]):
 		for j in range(0, size[1]):
-			# red[i][j] = (255-red[i][j])
-			# blue[i][j] = (255-blue[i][j])
-			# green[i][j] = (255 - green[i][j])
+			red[i][j] = red[i][j]
+			blue[i][j] = blue[i][j]
+			green[i][j] = green[i][j]
 
-			red[i][j] = min(255, red[i][j]+50)
-			blue[i][j] = min(255, blue[i][j]+50)
-			green[i][j] = min(255, green[i][j]+50)
 
 if __name__ == '__main__':
 	try:
-		x,y = list(map(int, input().strip().split(' ')))
-		for i in range(0, x):
+		# first line is height and width of the image
+		ht,width = list(map(int, input().strip().split(' ')))
+
+		# input in format red / green / blue
+		for i in range(0, ht):
 			red.append(list(map(int, input().strip().split(' '))))
-		for i in range(0, x):
-			blue.append(list(map(int, input().strip().split(' '))))
-		for i in range(0, x):
+		for i in range(0, ht):
 			green.append(list(map(int, input().strip().split(' '))))
+		for i in range(0, ht):
+			blue.append(list(map(int, input().strip().split(' '))))
 
-		main((x,y))
+		# call your magic filter function to do its magic !
+		main([ht,width])
 
-		print(x,y)
-		print_pixel(red, (x,y))
-		print_pixel(green, (x,y))
-		print_pixel(blue, (x,y))
+		# first line of output is height and width of the image
+		print(ht,width)
+
+		# Output in format red / green / blue
+		print_pixel(red, [ht,width])
+		print_pixel(green, [ht,width])
+		print_pixel(blue, [ht,width])
 
 	except Exception as e:
 		print(e, file=sys.stderr)
-		# raise e
 		pass

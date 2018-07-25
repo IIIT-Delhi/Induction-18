@@ -80,7 +80,7 @@ def reconstruct_image(f_name, size):
 	pix = im.load()
 	for i in range(0, size[0]):
 		for j in range(0, size[1]):
-			pix[i,j] = (red[i][j], blue[i][j], green[i][j])
+			pix[i,j] = (red[i][j], green[i][j], blue[i][j])
 	if f_name:
 		im.save(f_name,"JPEG")
 	im.show()
@@ -146,9 +146,9 @@ if __name__ == '__main__':
 		for i in range(0, x):
 			red.append(list(map(int, input().strip().split(' '))))
 		for i in range(0, x):
-			blue.append(list(map(int, input().strip().split(' '))))
-		for i in range(0, x):
 			green.append(list(map(int, input().strip().split(' '))))
+		for i in range(0, x):
+			blue.append(list(map(int, input().strip().split(' '))))
 
 		reconstruct_image(args.output, (x,y))
 	except Exception as e:
