@@ -15,6 +15,7 @@ def apply_filter(image, level):
 	if level<=0 or level >=8:
 		return
 	im = Image.open(image)
+	im = im.convert('RGB')
 	size = im.size
 	px = im.load()
 
@@ -60,8 +61,10 @@ def print_index(pixels, size, index):
 def print_image(f_name):
 	# This is the function that will act as a driver for input generation
 	im = Image.open(f_name)
+	im = im.convert('RGB')
 	pixels = im.load()
 	print(im.size[0], im.size[1])
+
 	# print red pixels
 	print_index(pixels, im.size, 0)
 	# print blue pixels
@@ -78,6 +81,8 @@ def reconstruct_image(f_name, size):
 	for i in range(0, size[0]):
 		for j in range(0, size[1]):
 			pix[i,j] = (red[i][j], blue[i][j], green[i][j])
+	if f_name:
+		im.save(f_name,"JPEG")
 	im.show()
 	im.close()
 
@@ -136,10 +141,6 @@ if __name__ == '__main__':
 	fake_stdin = io.StringIO(output_str)
 	real_stdin = sys.stdin
 	try:
-		if args.output:
-			file_name = args.output
-		else:
-			file_name = 'output.bmp'
 		sys.stdin = fake_stdin
 		x,y = map(int, input().strip().split(' '))
 		for i in range(0, x):
@@ -149,7 +150,7 @@ if __name__ == '__main__':
 		for i in range(0, x):
 			green.append(list(map(int, input().strip().split(' '))))
 
-		reconstruct_image(file_name, (x,y))
+		reconstruct_image(args.output, (x,y))
 	except Exception as e:
 		print('Hey !\nThere were some errors in the input data !', file=sys.stderr)
 	finally:
