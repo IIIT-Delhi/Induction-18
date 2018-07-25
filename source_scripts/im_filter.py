@@ -12,7 +12,7 @@ blue = []
 green = []
 
 def apply_filter(image, level):
-	if level<=0 or level >=8:
+	if level<0 or level >8:
 		return
 	im = Image.open(image)
 	im = im.convert('RGB')
@@ -21,7 +21,10 @@ def apply_filter(image, level):
 
 	for i in range(0, size[0]):
 		for j in range(0, size[1]):
-			if level == 1:
+			if level == 0:
+				r,g,b = px[i,j]
+				px[i,j] = (r,g,b)
+			elif level == 1:
 				# apply a red filter
 				r,g,b = px[i,j]
 				px[i,j] = (255,g,b)
@@ -50,6 +53,26 @@ def apply_filter(image, level):
 					g_temp = g_temp//9
 					b_temp = b_temp//9
 					px[i,j] = (r_temp,g_temp,b_temp)
+			elif level == 6:
+				# create a black frame:
+				if i>=0 and i<=10:
+					px[i,j] = (0,0,0)
+				if j>=0 and j<=10:
+					px[i,j] = (0,0,0)
+				if i>=size[0]-10 and i<size[0]:
+					px[i,j] = (0,0,0)
+				if j>=size[1]-10 and j<size[1]:
+					px[i,j] = (0,0,0)
+			elif level == 7:
+				# create a red cross
+				if i==size[0]-i:
+					px[i,j] = (255,0,0)
+				if j==size[1]-j:
+					px[i,j] = (255,0,0)
+			elif level == 8:
+				# create a purple filter
+				r,g,b = px[i,j]
+				px[i,j] = (r+50, g, b+50)
 	im.show(title='Level '+str(level)+" Expected")
 
 def print_index(pixels, size, index):
@@ -94,6 +117,7 @@ if __name__ == '__main__':
 						help=textwrap.dedent("""Show sample output for a given level !
 	Only for testing purpose. It will apply the filter to the given path to show how the result would ideally
 	look like and then exit.
+	Level 0 - No change
 	Level 1 - Red filter
 	Level 2 - Invert filter
 	Level 3 - Grayscale filter
@@ -101,17 +125,18 @@ if __name__ == '__main__':
 	Level 5 - Blurr filter
 	----- Extra tasks -----
 	Level 6 - Create a black frame on the image
-	Level 7 - Draw a red cross on the image
+	Level 7 - Draw a red plus sign on the image
+	Level 8 - Purple filter
 						 	 """),
 						type=int,
-						choices=[1,2,3,4,5]
+						choices=[0,1,2,3,4,5,6,7,8]
 						)
 	parser.add_argument("-o","--output", help="output file name")
 	parser.add_argument("command", help="command to run your program and get the desired output")
 	parser.add_argument("path", help="path to image for which the filter is being built.")
 	args = parser.parse_args()
 
-	if args.level:
+	if args.level is not None:
 		apply_filter(args.path,args.level)
 		sys.exit(0)
 
