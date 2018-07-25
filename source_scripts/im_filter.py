@@ -11,6 +11,46 @@ red = []
 blue = []
 green = []
 
+def apply_filter(image, level):
+	if level<=0 or level >=8:
+		return
+	im = Image.open(image)
+	size = im.size
+	px = im.load()
+
+	for i in range(0, size[0]):
+		for j in range(0, size[1]):
+			if level == 1:
+				# apply a red filter
+				r,g,b = px[i,j]
+				px[i,j] = (255,g,b)
+			elif level == 2:
+				# apply invert
+				r,g,b = px[i,j]
+				px[i,j] = (255-r, 255-g, 255-b)
+			elif level == 3:
+				# apply grayscale
+				r,g,b = px[i,j]
+				px[i,j] = (r,r,r)
+			elif level == 4:
+				# apply brightness
+				r,g,b = px[i,j]
+				px[i,j] = (min(255, r+50), min(255, g+50), min(255, b+50))
+			elif level == 5:
+				# apply dumb blurr
+				r_temp = g_temp = b_temp = 0
+				if i>=1 and i<size[0]-1 and j>=1 and j<size[1]-1:
+					for p in [-1,0,1]:
+						for q in [-1,0,1]:
+							r_temp += px[i+p, j+q][0]
+							g_temp += px[i+p, j+q][1]
+							b_temp += px[i+p, j+q][2]
+					r_temp = r_temp//9
+					g_temp = g_temp//9
+					b_temp = b_temp//9
+					px[i,j] = (r_temp,g_temp,b_temp)
+	im.show(title='Level '+str(level)+" Expected")
+
 def print_index(pixels, size, index):
 	for i in range(0, size[0]):
 		for j in range(0, size[1]):
@@ -46,7 +86,9 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='helper program for image filtering',
 									 formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument("-l","--level",
-						help=textwrap.dedent("""The level of filter that should be tested !
+						help=textwrap.dedent("""Show sample output for a given level !
+	Only for testing purpose. It will apply the filter to the given path to show how the result would ideally
+	look like and then exit.
 	Level 1 - Red filter
 	Level 2 - Invert filter
 	Level 3 - Grayscale filter
@@ -57,13 +99,16 @@ if __name__ == '__main__':
 	Level 7 - Draw a red cross on the image
 						 	 """),
 						type=int,
-						choices=[1,2,3,4,5],
-						default=1
+						choices=[1,2,3,4,5]
 						)
 	parser.add_argument("-o","--output", help="output file name")
 	parser.add_argument("command", help="command to run your program and get the desired output")
 	parser.add_argument("path", help="path to image for which the filter is being built.")
 	args = parser.parse_args()
+
+	if args.level:
+		apply_filter(args.path,args.level)
+		sys.exit(0)
 
 	real_stdout = sys.stdout
 	fake_stdout = io.StringIO()
