@@ -35,26 +35,26 @@ public class JavaBoilerPlate {
 
 
 	public void filter() {
-		/**
-		 * Write your code here:
-		 * 
-		 * Inputs: 
-		 * 
-		 * int red[][] - stores red component of the image
-		 * int green[][] - stores green component of the image
-		 * int blue[][] - stores blue component of the image
-		 * int height - height of the image
-		 * int width - width of the image
-		 * 
-		 * Outputs:
-		 * 
-		 * Modify `red`, `green` and `blue` itself.
-		 * 
-		 * 
-		 * Note: The current code leaves the image unchanged
-		 */
+	/**
+	 * Write your code here:
+	 * 
+	 * Inputs: 
+	 * 
+	 * int red[][] - stores red component of the image
+	 * int green[][] - stores green component of the image
+	 * int blue[][] - stores blue component of the image
+	 * int height - height of the image
+	 * int width - width of the image
+	 * 
+	 * Outputs:
+	 * 
+	 * Modify `red`, `green` and `blue` itself.
+	 * 
+	 * 
+	 * Note: The current code leaves the image unchanged
+	 */
 
-		//=========================
+	//=========================
         // Write filter logic here
         //=========================
 		for(int i=0; i<height; i++){
