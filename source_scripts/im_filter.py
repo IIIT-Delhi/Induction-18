@@ -5,6 +5,7 @@ import argparse
 import io
 import subprocess
 import sys
+import textwrap
 
 red = []
 blue = []
@@ -34,26 +35,27 @@ def reconstruct_image(f_name, size):
 	# This is the function that will act as a driver for reconstruction
 	im = Image.new('RGB',size)
 	pix = im.load()
-	for i in range(0, size[0]-1):
-		for j in range(0, size[1]-1):
+	for i in range(0, size[0]):
+		for j in range(0, size[1]):
 			pix[i,j] = (red[i][j], blue[i][j], green[i][j])
 	im.show()
 	im.close()
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(description='helper program for image filtering',
+									 formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument("-l","--level",
-						help="""The level of filter that should be tested !
-								Level 1 - Red filter\n
-								Level 2 - Invert filter\n
-								Level 3 - Grayscale filter\n
-								Level 4 - Increase brightness\n
-								Level 5 - Blurr filter\n
-								----- Extra tasks -----\n
-								Level 6 - Create a black frame on the image\n
-								Level 7 - Draw a red cross on the image\n
-						 	 """,
+						help=textwrap.dedent("""The level of filter that should be tested !
+	Level 1 - Red filter
+	Level 2 - Invert filter
+	Level 3 - Grayscale filter
+	Level 4 - Increase brightness
+	Level 5 - Blurr filter
+	----- Extra tasks -----
+	Level 6 - Create a black frame on the image
+	Level 7 - Draw a red cross on the image
+						 	 """),
 						type=int,
 						choices=[1,2,3,4,5],
 						default=1
@@ -71,6 +73,8 @@ if __name__ == '__main__':
 		print_image(args.path)
 	except BrokenPipeError as e:
 		print('Hey !\nThe input was not read completely !', file=sys.stderr)
+	except FileNotFoundError as e:
+		print('Invalid file ' + args.path)
 	finally:
 		sys.stdout = real_stdout
 		output_str = fake_stdout.getvalue()
@@ -92,13 +96,13 @@ if __name__ == '__main__':
 		else:
 			file_name = 'output.bmp'
 		sys.stdin = fake_stdin
-		x,y = map(int, input().split(' '))
+		x,y = map(int, input().strip().split(' '))
 		for i in range(0, x):
-			red.append(list(map(int, input().split(' ')[:-1])))
+			red.append(list(map(int, input().strip().split(' '))))
 		for i in range(0, x):
-			blue.append(list(map(int, input().split(' ')[:-1])))
+			blue.append(list(map(int, input().strip().split(' '))))
 		for i in range(0, x):
-			green.append(list(map(int, input().split(' ')[:-1])))
+			green.append(list(map(int, input().strip().split(' '))))
 
 		reconstruct_image(file_name, (x,y))
 	except Exception as e:

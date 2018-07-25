@@ -13,21 +13,25 @@ def print_pixel(arr, size):
 def main(size):
 	global red, blue, green
 	# Write your logic below :
-	for i in range(0, size[0]-1):
-		for j in range(0, size[1]-1):
-			red[i][j] = (255-red[i][j])
-			blue[i][j] = (255-blue[i][j])
-			green[i][j] = (255 - green[i][j])
+	for i in range(0, size[0]):
+		for j in range(0, size[1]):
+			# red[i][j] = (255-red[i][j])
+			# blue[i][j] = (255-blue[i][j])
+			# green[i][j] = (255 - green[i][j])
+
+			red[i][j] = min(255, red[i][j]+50)
+			blue[i][j] = min(255, blue[i][j]+50)
+			green[i][j] = min(255, green[i][j]+50)
 
 if __name__ == '__main__':
 	try:
-		x,y = map(int, input().split(' '))
+		x,y = list(map(int, input().strip().split(' ')))
 		for i in range(0, x):
-			red.append(list(map(int, input().split(' ')[:-1])))
+			red.append(list(map(int, input().strip().split(' '))))
 		for i in range(0, x):
-			blue.append(list(map(int, input().split(' ')[:-1])))
+			blue.append(list(map(int, input().strip().split(' '))))
 		for i in range(0, x):
-			green.append(list(map(int, input().split(' ')[:-1])))
+			green.append(list(map(int, input().strip().split(' '))))
 
 		main((x,y))
 
@@ -37,6 +41,6 @@ if __name__ == '__main__':
 		print_pixel(blue, (x,y))
 
 	except Exception as e:
-		# print(e, file=sys.stderr)
+		print(e, file=sys.stderr)
 		# raise e
 		pass
