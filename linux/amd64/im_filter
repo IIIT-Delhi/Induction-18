@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# linux x86-64 (64 bits)
+bin/img_to_mat $2 | $1 | bin/mat_to_img

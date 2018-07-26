@@ -22,8 +22,18 @@ do
     fi  
 
     env GOOS=$GOOS GOARCH=$GOARCH go build  -ldflags "-extldflags -static" -o $output_name $package
+    output_name2=$GOOS'/'$GOARCH'/bin/'$package_name
+    output_name3=$GOOS'/'$GOARCH'/'
+
+    cp $output_name $output_name2
+    
+    cp pythonboilerplate.py $output_name3
+    cp cppboilerplate.cpp $output_name3
+    cp JavaBoilerPlate.java $output_name3
+    cp logoTemp.jpg $output_name3
+
     if [ $? -ne 0 ]; then
-        echo 'An error has occurred! Aborting the script execution...'
+        echo 'An error has occurred ! Aborting the script execution...'
         exit 1
     fi
 done
