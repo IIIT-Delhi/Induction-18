@@ -1,4 +1,4 @@
-# Image filtering
+# Filters - Induction 2018
 
 im_filter.py - the main script that will take care of everything
 has a detailed help section. Accessible via python im_filter.py --help 
@@ -18,13 +18,4 @@ For detailed help:
 ./imfilter --help
 ```
 
-# Deprecated go binaries, highly outdated
-Use the im_filter binary instead (only for linux, ask windows people to share)
-
-## building binaries
-
-```bash
-    sudo docker run --rm -it -v "$PWD":/usr/src/myapp -w /usr/src/myapp golang bash
-    ./build.sh ./mat_to_img/
-    ./build.sh ./img_to_mat/
-```
+**Note:** im_filter binary works only on linux right now. Windows users are recommened to share. 
