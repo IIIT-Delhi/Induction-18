@@ -1,0 +1,17 @@
+language: python            # this works for Linux but is an error on macOS or Windows
+matrix:
+  include:
+    - name: "Python 3 on Xenial Linux"
+      python: 3.6           # this works for Linux but is ignored on macOS or Windows
+      dist: bionic          # required for Python >= 3.7
+    - name: "Python 3 on macOS Sierra"
+      os: osx
+      osx_image: xcode10.2  # Python 3.7.2 running on macOS 10.14.3
+      language: shell       # 'language: python' is an error on Travis CI macOS
+
+install:
+  - python3 -m pip install -r requirements.txt || python -m pip install -r requirements.txt
+
+script:
+  - echo `python --version`
+  - pyinstaller -F source_script/im_filter.py
