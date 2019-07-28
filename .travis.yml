@@ -4,16 +4,23 @@ matrix:
     - name: "Python 3 on Xenial Linux"
       python: 3.6           # this works for Linux but is ignored on macOS or Windows
       dist: bionic          # required for Python >= 3.7
+      after_success:
+        - mv ./dist/im_filter ./im_filter_ubuntu
     - name: "Python 3 on macOS Sierra"
       os: osx
       osx_image: xcode10.2  # Python 3.7.2 running on macOS 10.14.3
       language: shell       # 'language: python' is an error on Travis CI macOS
+      after_success:
+        - mv ./dist/im_filter ./im_filter_osx
     - name: "Python 3 on Windows"
       os: windows           # Windows 10.0.17134 N/A Build 17134
       language: shell       # 'language: python' is an error on Travis CI Windows
       before_install:
         - choco install python
         - python -m pip install --upgrade pip
+      after_success:
+        - mv ./dist/im_filter.exe ./im_filter_win.exe
+        - ls
       env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 
 install:
@@ -21,3 +28,15 @@ install:
 
 script:
   - pyinstaller -F source_script/im_filter.py
+
+deploy:
+  skip_cleanup: true
+  api_key: $API_KEY
+  file:
+    - "im_filter_ubuntu"
+    - "im_filter_osx"
+    - "im_filter_win.exe"
+  provider: releases
+  on:
+    tags: true
+  overwrite: true
